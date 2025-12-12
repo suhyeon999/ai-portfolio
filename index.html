@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Creator Portfolio: suhyeon Jeong </title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 기본 설정 */
+        :root {
+            --primary-bg: #1a1a2e;
+            --secondary-bg: #0f3460;
+            --accent-color: #e94560;
+            --text-color: #ffffff;
+            --sub-text-color: #a0a0a0;
+            --form-bg: #282a4d;
+            --border-color: #3b3d68;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    
+    /* === 배경 이미지 추가 === */
+    background-image: url('space.jpeg'); /* 여기에 이미지 파일 경로를 넣어주세요. */
+    background-size: cover; /* 화면 전체를 덮도록 설정 */
+    background-attachment: fixed; /* 스크롤 시 배경이 고정되도록 설정 (신비로운 느낌 강화) */
+    background-position: center;
+    
+    /* 이미지 위에 어두운 필터(오버레이)를 씌워 텍스트 가독성 확보 */
+    background-color: rgba(0, 0, 0, 0.7); /* 검은색 반투명 오버레이 */
+    background-blend-mode: multiply; /* 배경 이미지와 오버레이를 섞는 모드 */
+}
+
+/* 추가: 배경이 어두워졌으므로, 기본 배경색을 사용했던 요소들의 배경색을 조금 더 밝게 조정할 수 있습니다. */
+/* 예: 헤더와 짝수 섹션의 배경색을 투명하게 하거나, 더 진한 색으로 유지 */
+
+/* 헤더 배경을 반투명하게 변경 (선택 사항) */
+header {
+    background-color: rgba(15, 52, 96, 0.5); /* secondary-bg를 반투명하게 */
+    /* ... (나머지 스타일 유지) */
+}
+
+/* 짝수 섹션 배경 (secondary-bg였던 곳)을 반투명하게 변경 (선택 사항) */
+section:nth-of-type(even) {
+    background-color: rgba(15, 52, 96, 0.6); /* secondary-bg를 반투명하게 */
+}
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 헤더 */
+        header {
+            background-color: var(--secondary-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: var(--sub-text-color);
+        }
+
+        /* 내비게이션 */
+        nav {
+            background-color: var(--primary-bg);
+            text-align: center;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+            background-color: rgba(233, 69, 96, 0.1);
+            border-radius: 5px;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--secondary-bg);
+        }
+
+        section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* About Me 섹션 */
+        #about p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            color: var(--sub-text-color);
+        }
+
+        /* AI Characters 섹션 */
+        .ai-character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .ai-character-item {
+            background-color: var(--form-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .ai-character-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .ai-character-item img {
+            max-width: 100%;
+            height: auto; /* 고정 높이 */
+            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+        }
+
+        .ai-character-item h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5em;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .ai-character-item p {
+            color: var(--sub-text-color);
+            font-size: 0.95em;
+            margin-bottom: 0;
+        }
+
+        /* AI Ads 섹션 */
+        .ai-ad-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .ai-ad-item {
+            background-color: var(--form-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* 비디오 비율 유지 */
+        }
+
+        .ai-ad-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 비율 (높이 / 너비 * 100) */
+            height: 0;
+            overflow: hidden;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .ai-ad-item h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4em;
+            color: var(--accent-color);
+            margin: 20px 0 10px;
+            padding: 0 20px;
+        }
+
+        .ai-ad-item p {
+            color: var(--sub-text-color);
+            font-size: 0.9em;
+            padding: 0 20px 20px;
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        /* Contact 섹션 */
+        #contact {
+            background-image: linear-gradient(to bottom right, var(--primary-bg), var(--secondary-bg));
+            padding-bottom: 100px;
+        }
+
+        .contact-form {
+            background-color: var(--form-bg);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin: 50px auto 0 auto;
+            text-align: left;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 1.1em;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.4);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background-color: #f1677c;
+            transform: translateY(-3px);
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: var(--primary-bg);
+            color: var(--sub-text-color);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 미디어 쿼리 (반응형 디자인) */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav a {
+                padding: 8px 15px;
+                margin: 0 5px;
+                font-size: 0.9em;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .ai-character-grid, .ai-ad-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+            .ai-character-item, .ai-ad-item {
+                margin-bottom: 30px;
+            }
+            .contact-form {
+                padding: 30px;
+                margin: 30px auto 0 auto;
+            }
+            .contact-form input, .contact-form textarea, .contact-form button {
+                width: calc(100% - 30px); /* 패딩 고려 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>AI Creator: suhyeon Jeong </h1>
+            <p>AI Portfolio</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#about">About</a>
+            <a href="#characters">AI Characters</a>
+            <a href="#ads">AI Ads</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="about" class="fade-in">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>안녕하세요! AI 기술을 활용하여 독창적인 캐릭터와 매력적인 광고 영상을 제작하는 [당신의 이름]입니다. 저는 인공지능의 무한한 가능성을 탐구하며, 창의적인 아이디어를 현실로 구현하는 데 열정을 쏟고 있습니다. 저의 포트폴리오를 통해 AI가 만들어낼 수 있는 예술적, 상업적 가치를 경험해보세요.</p>
+                <p>AI 기반 이미지 생성, 영상 편집, 스토리텔링 등 다양한 분야에서 혁신적인 결과물을 만들고 있습니다. 기술과 예술의 경계를 허물고, 새로운 시각적 경험을 제공하는 것이 저의 목표입니다.</p>
+            </div>
+        </section>
+
+        <section id="characters" class="fade-in">
+            <div class="container">
+                <h2>AI Characters</h2>
+                <p>인공지능의 상상력으로 탄생한 독창적인 캐릭터들을 소개합니다. 각 캐릭터는 고유한 스토리와 개성을 가지고 있습니다.</p>
+                <div class="ai-character-grid">
+                    <div class="ai-character-item">
+                        <img src="arin2.png" alt="ARIN">
+                        <h3>ARIN</h3>
+                        <p>미래 도시의 해커이자 수호자. 데이터 흐름을 시각화하는 능력을 가지고 있습니다.</p>
+                    </div>
+                    <div class="ai-character-item">
+                        <img src="https://via.placeholder.com/400x200?text=AI+Character+2" alt="AI 캐릭터 2">
+                        <h3>Nova (노바)</h3>
+                        <p>은하계를 탐험하는 AI 로봇. 빛과 에너지를 조작하여 신비로운 현상을 만들어냅니다.</p>
+                    </div>
+                    <div class="ai-character-item">
+                        <img src="https://via.placeholder.com/400x200?text=AI+Character+3" alt="AI 캐릭터 3">
+                        <h3>Echo (에코)</h3>
+                        <p>과거의 기억과 미래의 가능성을 연결하는 AI 메신저. 감성적인 스토리텔링에 능합니다.</p>
+                    </div>
+                    </div>
+            </div>
+        </section>
+        
+        <section id="ads" class="fade-in">
+            <div class="container">
+                <h2>AI Advertising Videos</h2>
+                <p>AI 기술로 제작된 혁신적인 광고 영상들입니다. 브랜드의 메시지를 가장 효과적이고 매력적으로 전달합니다.</p>
+                <div class="ai-ad-grid">
+                    <div class="ai-ad-item">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/your_video_id_1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        <h3>미래형 스마트 기기 광고</h3>
+                        <p>AI가 생성한 시나리오와 비주얼로 구성된 하이테크 제품 광고입니다.</p>
+                    </div>
+                    <div class="ai-ad-item">
+                        <div class="video-wrapper">
+                             <iframe src="https://www.youtube.com/embed/your_video_id_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h3>친환경 AI 솔루션 캠페인</h3>
+                        <p>지속 가능한 미래를 위한 AI 솔루션을 감성적으로 표현한 광고 영상입니다.</p>
+                    </div>
+                    <div class="ai-ad-item">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/your_video_id_3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h3>AI 기반 교육 플랫폼 홍보</h3>
+                        <p>개인 맞춤형 학습을 제공하는 AI 교육 플랫폼의 장점을 부각한 광고입니다.</p>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact" class="fade-in">
+            <div class="container">
+                <h2>Contact Me</h2>
+                <p>저의 작업에 관심이 있으시거나 협업 문의가 있으시면 언제든지 연락 주세요. 당신의 아이디어를 AI와 함께 현실로 만들 준비가 되어 있습니다!</p>
+                <form class="contact-form" action="#" method="POST">
+                    <label for="name">이름:</label>
+                    <input type="text" id="name" name="name" required placeholder="이름을 입력해주세요">
+
+                    <label for="email">이메일:</label>
+                    <input type="email" id="email" name="email" required placeholder="이메일 주소를 입력해주세요">
+
+                    <label for="message">메시지:</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="메시지를 남겨주세요"></textarea>
+
+                    <button type="submit">메시지 보내기</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 [당신의 이름] AI Creator Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 스크롤 애니메이션
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // 섹션의 10%가 보이면 애니메이션 시작
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // 한 번만 애니메이션 실행 후 관찰 중지
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // "메시지 보내기" 버튼 클릭 시 (실제 서버 통신은 백엔드 필요)
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // 기본 폼 제출 동작 방지
+
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+
+                    // 여기에 실제 이메일 전송 로직 (백엔드 필요) 또는 다른 서비스 연동
+                    // 예: Formspree, EmailJS 같은 서비스를 사용하거나, 직접 서버를 구축해야 합니다.
+                    // 이 코드는 클라이언트 측에서만 동작하므로 실제 메일은 가지 않습니다.
+                    alert(`메시지가 성공적으로 전송되었습니다!\n\n이름: ${name}\n이메일: ${email}\n메시지: ${message}`);
+
+                    // 폼 초기화 (선택 사항)
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
